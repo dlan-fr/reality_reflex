@@ -10,6 +10,8 @@ public class Scene1_script : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
+
 	
 	}
 	

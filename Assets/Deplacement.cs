@@ -5,9 +5,9 @@ public class Deplacement : MonoBehaviour {
 	public float speed;
 	public float jump;
 	// Use this for initialization
-	//void Start () {
-	
-	//}
+	void Start () {
+		GameDataMngr.Singleton.SetRespawn(GameObject.Find("Playercontroller"),GameObject.Find("Respawn"));
+	}
 	
 	// Update is called once per frame
 	void Update () {
