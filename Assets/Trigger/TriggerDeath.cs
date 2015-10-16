@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Scene2_script : MonoBehaviour {
+public class TriggerDeath : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -11,5 +11,11 @@ public class Scene2_script : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	
+	void OnTriggerEnter2D(Collider2D other) {
+		GameDataMngr.Singleton.Respawn(other.gameObject);
+
 	}
 }

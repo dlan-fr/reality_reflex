@@ -6,14 +6,9 @@ public class GameDataMngr {
 	private string CurrentLevel = "scene_1";
 	private string data = "balal";
 
-	public string odata
-	{
-		get
-		{
-			return data;
-		}
-	}
+	private Vector3 LevelStartPos = Vector3.zero;
 
+	
 	private static GameDataMngr _singleton = null;
 
 	public static GameDataMngr Singleton
@@ -27,10 +22,19 @@ public class GameDataMngr {
 		}
 	}
 
-	public void setdata(string data)
+
+	public void SetRespawn(GameObject player, GameObject respawn)
 	{
-		this.data = data;
+		respawn.GetComponent<SpriteRenderer>().enabled = false;
+		LevelStartPos = respawn.transform.position;
+		player.transform.position = LevelStartPos;
 	}
+
+	public void Respawn(GameObject player)
+	{
+		player.transform.position = LevelStartPos;
+	}
+
 
 	public void SetNewLevel(string newlevel)
 	{

@@ -9,8 +9,6 @@ public class Scene1_script : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GameDataMngr.Singleton.setdata("tes scene");
-	
 
 	
 	}

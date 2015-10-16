@@ -49,7 +49,8 @@
      <Compile Include="Assets\GameDataMngr.cs" />
      <Compile Include="Assets\Scene1_script.cs" />
      <Compile Include="Assets\Scene2_script.cs" />
-     <Compile Include="Assets\TriggerPortal.cs" />
+     <Compile Include="Assets\Trigger\TriggerDeath.cs" />
+     <Compile Include="Assets\Trigger\TriggerPortal.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
