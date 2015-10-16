@@ -45,8 +45,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Deplacement.cs" />
      <Compile Include="Assets\GameDataMngr.cs" />
+     <Compile Include="Assets\ObjetMouvant.cs" />
      <Compile Include="Assets\Scene1_script.cs" />
      <Compile Include="Assets\Scene2_script.cs" />
      <Compile Include="Assets\Trigger\TriggerDeath.cs" />
