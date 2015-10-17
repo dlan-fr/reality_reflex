@@ -21,6 +21,10 @@ public class ObjetMouvant : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+
+		depart += transform.parent.position;
+		arrivee += transform.parent.position;
+
 		direction = false;
 		Vector3 d = new Vector3();
 		switch (sens){
