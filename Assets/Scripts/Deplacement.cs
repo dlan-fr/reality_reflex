@@ -36,6 +36,8 @@ public class Deplacement : MonoBehaviour {
 						deplac.y += jump*this.GetComponent<Rigidbody2D>().gravityScale;
 				}
                 transform.position += deplac;
+
+		GameDataMngr.Singleton.UpdateEffects();
 	}
 
 	

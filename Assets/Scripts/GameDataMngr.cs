@@ -69,6 +69,11 @@ public class GameDataMngr {
 
 	}
 
+	public GameObject fond1;
+	public GameObject fond2;
+
+	private const float FADE_SPEED = 2;
+
 	public void ApplyEffect(GameObject player)
 	{
 		switch(currentEffect)
@@ -79,7 +84,37 @@ public class GameDataMngr {
 			case SpecialEffect.GRAVITY_INVERSE:
 				player.GetComponent<Rigidbody2D>().gravityScale = -1;
 			break;
+			case SpecialEffect.BACKGROUND_FADEOUT:
+
+				fond1 = GameObject.Find("fond1");
+				
+
+			break;
 		}
+	}
+
+
+
+	public void UpdateEffects()
+	{
+		switch(currentEffect)
+		{
+			case SpecialEffect.BACKGROUND_FADEOUT:
+				if(fond1 != null)
+				{
+					Color fond_color = fond1.GetComponent<SpriteRenderer>().material.color;
+
+					if(fond_color.a > 0)
+						fond1.GetComponent<SpriteRenderer>().material.color = new Color(fond_color.r,fond_color.g,fond_color.b,Mathf.Lerp(fond_color.a,0,Time.deltaTime * FADE_SPEED));
+					else
+						fond1 = null;
+
+					
+				}
+				
+			break;
+		}
+
 	}
 
 
