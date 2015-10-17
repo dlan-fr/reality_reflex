@@ -113,6 +113,9 @@ public class GameDataMngr {
 				}
 				
 			break;
+			case SpecialEffect.GUI_FADEOUT:
+				
+			break;
 		}
 
 	}
