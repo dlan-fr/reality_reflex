@@ -14,7 +14,7 @@ public class Deplacement : MonoBehaviour {
 
 		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
 
-		GameDataMngr.Singleton.graphEffets.Add(new Effet(GameObject.Find("text_ui",GraphicEffect.GUI_FADEOUT,2));
+		GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
 		
 
 	}
