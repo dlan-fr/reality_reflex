@@ -107,13 +107,25 @@ public class Deplacement : MonoBehaviour {
 	void Update () {
 
 		bool onground = false;
+		bool onslope = false;
+
+		int layer_u = (1 << LayerMask.NameToLayer("layerslope"));
+
 
 		if(GetComponent<Rigidbody2D>().gravityScale > 0)
-			onground = feet.IsTouchingLayers(1);
-		else if(GetComponent<Rigidbody2D>().gravityScale < 0)
-			onground = head.IsTouchingLayers(1);
+		{
+			onslope = feet.IsTouchingLayers(layer_u);
+			onground = feet.IsTouchingLayers(1) || onslope;
 
-	//	Debug.Log("ground val "+onground.ToString());
+		}
+		else if(GetComponent<Rigidbody2D>().gravityScale < 0)
+		{
+			onslope = head.IsTouchingLayers(layer_u);
+			onground = head.IsTouchingLayers(1) || onslope;
+
+		}
+
+	
 
 
 		Vector2 force = new Vector2();
@@ -126,18 +138,35 @@ public class Deplacement : MonoBehaviour {
  
 		if (Input.GetKey (KeyCode.Q) ) {
 			if(Mathf.Abs(currentvelocity.x) < VelmaxX)
-				force.x = -dep;
-			//deplac.x -= speed;
-					changeDirection("left");
-			pressed = true;
+
+				if(onslope)
+				{
+					force.x = -dep;
+					force.y = dep;
+				}
+				else
+				{
+					force.x = -dep;
+				}
+				changeDirection("left");
+				pressed = true;
 
                 }
  
 		if (Input.GetKey (KeyCode.D) ) {
 
 			if(Mathf.Abs(currentvelocity.x) < VelmaxX)
-				force.x = dep;
-                       // deplac.x += speed; 
+
+				if(onslope)
+				{
+					force.x = dep;
+					force.y = dep;
+				}
+				else
+				{
+					force.x = dep;
+				}
+			// deplac.x += speed; 
 					changeDirection("right");
 			pressed = true;
                 }
@@ -146,10 +175,11 @@ public class Deplacement : MonoBehaviour {
 			{
 
 				if(Mathf.Abs(currentvelocity.y) < VelmaxY)
-				force.y = (70 * jump) * Mathf.Sign(GetComponent<Rigidbody2D>().gravityScale);
+					force.y = (70 * jump) * Mathf.Sign(GetComponent<Rigidbody2D>().gravityScale);
 
-			pressed = true;
+				pressed = true;
 			}
+
 
 		//if(force != Vector2.zero)
 		if(pressed)
