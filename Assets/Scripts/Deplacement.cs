@@ -5,6 +5,8 @@ using System.Collections.Generic;
 public class Deplacement : MonoBehaviour {
 	public float speed;
 	public float jump;
+
+	private Animator animator;
 	
 	
 	// Use this for initialization
@@ -15,6 +17,8 @@ public class Deplacement : MonoBehaviour {
 		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
 
 		GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
+
+		animator = GetComponentInChildren<Animator>();
 		
 
 	}
@@ -35,6 +39,10 @@ public class Deplacement : MonoBehaviour {
 						deplac.y += jump*this.GetComponent<Rigidbody2D>().gravityScale;
 				}
                 transform.position += deplac;
+
+		float progress = (int)((animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f) * 100);
+
+			//Debug.Log("rank ? "+progress);
 
 		GameDataMngr.Singleton.UpdateEffects();
 	}
