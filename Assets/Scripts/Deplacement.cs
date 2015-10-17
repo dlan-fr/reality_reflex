@@ -18,6 +18,9 @@ public class Deplacement : MonoBehaviour {
 	private SpriteRenderer sprite;
 	
 	
+	private bool collision = false;
+	
+	
 	// Use this for initialization
 	void Start () {
 		GameDataMngr.Singleton.SetRespawn(GameObject.Find("Playercontroller"),GameObject.Find("Respawn"));
@@ -93,8 +96,9 @@ public class Deplacement : MonoBehaviour {
 					changeDirection("right");
                 }
 				
-				if (Input.GetKey (KeyCode.Z)) {
-						deplac.y += jump*this.GetComponent<Rigidbody2D>().gravityScale;
+				if(Input.GetKeyDown(KeyCode.Z) & collision)
+				{
+					GetComponent<Rigidbody2D>().AddForce(new Vector2(0,100*jump));
 				}
 
 			if(deplac != Vector3.zero)
@@ -113,6 +117,9 @@ public class Deplacement : MonoBehaviour {
 
 	
 	void OnCollisionEnter2D(Collision2D coll){
+		//Détection de collision
+		collision =true;
+	
 		//Déplacement avec les plateformes
 		if (coll.gameObject.tag=="PF"){
 			transform.parent=coll.transform;
@@ -124,6 +131,7 @@ public class Deplacement : MonoBehaviour {
 			coll.gameObject.GetComponent<Renderer>().enabled = false;
 			coll.gameObject.GetComponent<Collider2D>().enabled = false;
 			GameObject.Find("Reliques").GetComponent<GUIText>().text = "Reliques : "+ GameDataMngr.Singleton.nbreReliques.ToString();
+			collision =true;
 		}
 	}
 	
@@ -131,6 +139,7 @@ public class Deplacement : MonoBehaviour {
 		if (coll.gameObject.tag=="PF"){
 			transform.parent=null;
 		}
+		collision=false;
 	}
 	
 }
