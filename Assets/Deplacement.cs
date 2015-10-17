@@ -37,8 +37,16 @@ public class Deplacement : MonoBehaviour {
 
 	
 	void OnCollisionEnter2D(Collision2D coll){
+		//Déplacement avec les plateformes
 		if (coll.gameObject.tag=="PF"){
 			transform.parent=coll.transform;
+		}
+		
+		//Ramassage de reliques
+		if (coll.gameObject.tag=="Relique"){
+			GameDataMngr.Singleton.nbreReliques++;
+			coll.gameObject.GetComponent<Renderer>().enabled = false;
+			Debug.Log("Relique");
 		}
 	}
 	
@@ -47,4 +55,5 @@ public class Deplacement : MonoBehaviour {
 			transform.parent=null;
 		}
 	}
+	
 }
