@@ -15,8 +15,6 @@ public class Deplacement : MonoBehaviour {
 		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
 		
 		
-		GameDataMngr.Singleton.currentEffect = SpecialEffect.GUI_FADEOUT;
-		GameDataMngr.Singleton.ApplyEffect(GameObject.Find("ui_text"));
 
 	}
 	
@@ -38,6 +36,7 @@ public class Deplacement : MonoBehaviour {
                 transform.position += deplac;
 
 		GameDataMngr.Singleton.UpdateEffects();
+		GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
 	}
 
 	

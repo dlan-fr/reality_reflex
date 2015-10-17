@@ -21,7 +21,7 @@ public class GameDataMngr {
 	public int nbreReliques = 0;
 	public int nbreMorts = 0;
 
-	public List<Effet> graphEffets = new List<Effet>();
+	public List<Effet> graphEffects = new List<Effet>();
 
 	
 	private static GameDataMngr _singleton = null;
@@ -119,7 +119,7 @@ public class GameDataMngr {
 
 		List<Effet> rm = new List<Effet>();
 
-		foreach(Effet ceff in graphEffets)
+		foreach(Effet ceff in graphEffects)
 		{
 			ceff.UpdateEffect();
 
@@ -128,7 +128,7 @@ public class GameDataMngr {
 		}
 
 		foreach(Effet crm in rm)
-			graphEffets.Remove(crm);
+			graphEffects.Remove(crm);
 
 
 	}
