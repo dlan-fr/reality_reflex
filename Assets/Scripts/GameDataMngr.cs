@@ -94,6 +94,7 @@ public class GameDataMngr {
 			music_amb_1 = music_1;
 			music_amb_2 = music_2;
 			music_node.GetComponent<AudioSource>().clip = music_1;
+			music_node.GetComponent<AudioSource>().loop = true;
 			music_node.GetComponent<AudioSource>().Play();
 			Object.DontDestroyOnLoad(music_node);
 
