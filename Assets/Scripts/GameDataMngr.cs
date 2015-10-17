@@ -6,19 +6,22 @@ public class GameDataMngr {
 
 	private Dictionary<string,string> level_str = new Dictionary<string, string>()
 	{
+		{"multiverse","Ici abandonne tout espoir..."},
 		{"niveau1","Et si la gravité changeait ?"},
 		{"niveau2", "Et si la gravité changeait ? 2 le retour"}
 	};
 
 
-	private string CurrentLevel = "niveau1";
+	private string CurrentLevel = "multiverse";
 
 	private Vector3 LevelStartPos = Vector3.zero;
 
-	public SpecialEffect currentEffect = SpecialEffect.NONE;
+	public PlayerEffect currentEffect = PlayerEffect.NONE;
 	
 	public int nbreReliques = 0;
 	public int nbreMorts = 0;
+
+	public List<Effet> graphEffets = new List<Effet>();
 
 	
 	private static GameDataMngr _singleton = null;
@@ -62,7 +65,7 @@ public class GameDataMngr {
 	{
 		player.transform.position = LevelStartPos;
 
-		currentEffect = SpecialEffect.NONE;
+		currentEffect = PlayerEffect.NONE;
 		player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		player.GetComponent<Rigidbody2D>().angularVelocity = 0.0f;
 		this.ApplyEffect(player);
@@ -79,13 +82,13 @@ public class GameDataMngr {
 	{
 		switch(currentEffect)
 		{
-			case SpecialEffect.NONE:
+			case PlayerEffect.NONE:
 				player.GetComponent<Rigidbody2D>().gravityScale = 1;
 			break;
-			case SpecialEffect.GRAVITY_INVERSE:
+			case PlayerEffect.GRAVITY_INVERSE:
 				player.GetComponent<Rigidbody2D>().gravityScale = -1;
 			break;
-			case SpecialEffect.BACKGROUND_FADEOUT:
+			case PlayerEffect.BACKGROUND_FADEOUT:
 
 				fond1 = GameObject.Find("fond1");
 			break;
@@ -98,7 +101,7 @@ public class GameDataMngr {
 	{
 		switch(currentEffect)
 		{
-			case SpecialEffect.BACKGROUND_FADEOUT:
+			case PlayerEffect.BACKGROUND_FADEOUT:
 				if(fond1 != null)
 				{
 					Color fond_color = fond1.GetComponent<SpriteRenderer>().material.color;
@@ -114,10 +117,24 @@ public class GameDataMngr {
 			break;
 		}
 
+		List<Effet> rm = new List<Effet>();
+
+		foreach(Effet ceff in graphEffets)
+		{
+			ceff.UpdateEffect();
+
+			if(ceff.Ended)
+				rm.Add(ceff);
+		}
+
+		foreach(Effet crm in rm)
+			graphEffets.Remove(crm);
+
+
 	}
 
 
-	public void SetNewLevel(string newlevel,SpecialEffect effect)
+	public void SetNewLevel(string newlevel,PlayerEffect effect)
 	{
 		this.CurrentLevel = newlevel;
 		Application.LoadLevel(newlevel);
