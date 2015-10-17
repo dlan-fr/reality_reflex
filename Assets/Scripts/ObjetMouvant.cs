@@ -50,6 +50,7 @@ public class ObjetMouvant : MonoBehaviour {
 		transform.position=depart+d;
 	
 	}
+
 	
 	// Update is called once per frame
 	void Update () {

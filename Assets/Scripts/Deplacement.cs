@@ -7,6 +7,15 @@ public class Deplacement : MonoBehaviour {
 	public float jump;
 
 	private Animator animator;
+
+	const int STATE_IDLE = 0;
+	const int STATE_WALK = 1;
+
+	private int _currentAnimationState;
+
+	private string _currentDirection = "right";
+
+	private SpriteRenderer sprite;
 	
 	
 	// Use this for initialization
@@ -19,8 +28,54 @@ public class Deplacement : MonoBehaviour {
 		GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
 
 		animator = GetComponentInChildren<Animator>();
+		_currentAnimationState = STATE_IDLE;
+
+		sprite = GetComponentInChildren<SpriteRenderer>();
 		
 
+	}
+
+	void changeState(int state){
+		
+		if (_currentAnimationState == state)
+			return;
+		
+		switch (state) {
+			
+			case STATE_WALK:
+				//animator.Play(0);
+				animator.SetInteger ("state", STATE_WALK);
+				break;
+				
+			case STATE_IDLE:
+				//animator.Play(1);
+				animator.SetInteger ("state", STATE_IDLE);
+				break;
+			
+
+			
+		}
+		
+		_currentAnimationState = state;
+	}
+
+	void changeDirection(string direction)
+	{
+		
+		if (_currentDirection != direction)
+		{
+			if (direction == "right")
+			{
+				sprite.transform.localRotation = Quaternion.Euler(0, 0, 0);
+				_currentDirection = "right";
+			}
+			else if (direction == "left")
+			{
+				sprite.transform.localRotation = Quaternion.Euler(0, 180, 0);
+				_currentDirection = "left";
+			}
+		}
+		
 	}
 	
 	// Update is called once per frame
@@ -29,15 +84,24 @@ public class Deplacement : MonoBehaviour {
  
                 if (Input.GetKey (KeyCode.Q)) {
                         deplac.x -= speed;
+					changeDirection("left");
+
                 }
  
                 if (Input.GetKey (KeyCode.D)) {
                         deplac.x += speed; 
+					changeDirection("right");
                 }
 				
 				if (Input.GetKey (KeyCode.Z)) {
 						deplac.y += jump*this.GetComponent<Rigidbody2D>().gravityScale;
 				}
+
+			if(deplac != Vector3.zero)
+				changeState(STATE_WALK);
+			else
+				changeState(STATE_IDLE);
+
                 transform.position += deplac;
 
 		float progress = (int)((animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f) * 100);
