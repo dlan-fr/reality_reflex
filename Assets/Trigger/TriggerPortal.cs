@@ -22,7 +22,7 @@ public class TriggerPortal : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other) {
 
 		if(currentBehav == PortalBehav.SWITCH_LEVEL)
-			GameDataMngr.Singleton.SetNewLevel("scene_2",currentEffect);
+			GameDataMngr.Singleton.SetNewLevel(ToScene,currentEffect);
 		else if(currentBehav == PortalBehav.SWITCH_MECHANICS)
 		{
 			GameDataMngr.Singleton.currentEffect = currentEffect;
