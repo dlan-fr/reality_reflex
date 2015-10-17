@@ -25,7 +25,7 @@ public class Deplacement : MonoBehaviour {
                 }
 				
 				if (Input.GetKey (KeyCode.Z)) {
-						deplac.y += jump;
+						deplac.y += jump*this.GetComponent<Rigidbody2D>().gravityScale;
 				}
                 transform.position += deplac;
 	}
