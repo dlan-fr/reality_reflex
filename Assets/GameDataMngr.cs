@@ -10,8 +10,11 @@ public class GameDataMngr {
 
 	
 	private static GameDataMngr _singleton = null;
+	
+	public Vector3 PositionPlateForme = Vector3.zero;
 
 	public static GameDataMngr Singleton
+
 	{
 		get
 		{
@@ -41,6 +44,7 @@ public class GameDataMngr {
 		this.CurrentLevel = newlevel;
 		Application.LoadLevel(newlevel);
 	}
+	
 
 
 
