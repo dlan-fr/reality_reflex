@@ -8,6 +8,8 @@ public class GameDataMngr {
 
 	private Vector3 LevelStartPos = Vector3.zero;
 
+	public SpecialEffect currentEffect = SpecialEffect.NONE;
+
 	
 	private static GameDataMngr _singleton = null;
 	
@@ -38,11 +40,26 @@ public class GameDataMngr {
 		player.transform.position = LevelStartPos;
 	}
 
+	public void ApplyEffect(GameObject player)
+	{
+		switch(currentEffect)
+		{
+			case SpecialEffect.NONE:
+				player.GetComponent<Rigidbody2D>().gravityScale = 1;
+			break;
+			case SpecialEffect.GRAVITY_INVERSE:
+				player.GetComponent<Rigidbody2D>().gravityScale = -1;
+			break;
+		}
+	}
 
-	public void SetNewLevel(string newlevel)
+
+	public void SetNewLevel(string newlevel,SpecialEffect effect)
 	{
 		this.CurrentLevel = newlevel;
 		Application.LoadLevel(newlevel);
+
+		this.currentEffect = effect;
 	}
 	
 

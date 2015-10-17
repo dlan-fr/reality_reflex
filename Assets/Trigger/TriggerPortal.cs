@@ -3,6 +3,10 @@ using System.Collections;
 
 public class TriggerPortal : MonoBehaviour {
 
+	public SpecialEffect currentEffect;
+	public string ToScene = "scene_2";
+	public PortalBehav currentBehav;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -16,7 +20,14 @@ public class TriggerPortal : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
-		GameDataMngr.Singleton.SetNewLevel("scene_2");
+
+		if(currentBehav == PortalBehav.SWITCH_LEVEL)
+			GameDataMngr.Singleton.SetNewLevel("scene_2",currentEffect);
+		else if(currentBehav == PortalBehav.SWITCH_MECHANICS)
+		{
+			GameDataMngr.Singleton.currentEffect = currentEffect;
+			GameDataMngr.Singleton.ApplyEffect(GameObject.Find("Playercontroller"));
+		}
 	}
 
 }
