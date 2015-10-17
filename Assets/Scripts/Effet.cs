@@ -8,6 +8,8 @@ public class Effet {
 	private GameObject refGameobject;
 
 	private float fade_speed = 2.0f;
+	
+	private float dureeAffichageTexte = 3.0f; //Durée d'affichage du texte en secondes
 
 	private bool effectEnded = false;
 
@@ -40,7 +42,9 @@ public class Effet {
 			break;
 			case GraphicEffect.GUI_FADEOUT:
 				Material mat2 =  refGameobject.GetComponent<GUIText>().material;
-				DoFade(mat2);
+				dureeAffichageTexte-=Time.deltaTime;
+				if ((dureeAffichageTexte)<0)
+					DoFade(mat2);
 			break;
 		}
 

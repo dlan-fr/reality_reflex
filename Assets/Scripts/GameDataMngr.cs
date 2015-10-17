@@ -22,7 +22,7 @@ public class GameDataMngr {
 	public int nbreReliques = 0;
 	public int nbreMorts = 0;
 
-	public List<Effet> graphEffets = new List<Effet>();
+	public List<Effet> graphEffects = new List<Effet>();
 
 	
 	private static GameDataMngr _singleton = null;
@@ -70,6 +70,7 @@ public class GameDataMngr {
 		player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		player.GetComponent<Rigidbody2D>().angularVelocity = 0.0f;
 		this.ApplyEffect(player);
+		
 
 	}
 
@@ -91,8 +92,6 @@ public class GameDataMngr {
 			case PlayerEffect.BACKGROUND_FADEOUT:
 
 				fond1 = GameObject.Find("fond1");
-				
-
 			break;
 		}
 	}
@@ -121,7 +120,7 @@ public class GameDataMngr {
 
 		List<Effet> rm = new List<Effet>();
 
-		foreach(Effet ceff in graphEffets)
+		foreach(Effet ceff in graphEffects)
 		{
 			ceff.UpdateEffect();
 
@@ -130,7 +129,7 @@ public class GameDataMngr {
 		}
 
 		foreach(Effet crm in rm)
-			graphEffets.Remove(crm);
+			graphEffects.Remove(crm);
 
 
 	}
