@@ -9,11 +9,11 @@ public class GameDataMngr {
 	private Vector3 LevelStartPos = Vector3.zero;
 
 	public SpecialEffect currentEffect = SpecialEffect.NONE;
+	public int nbreReliques = 0;
 
 	
 	private static GameDataMngr _singleton = null;
 	
-	public Vector3 PositionPlateForme = Vector3.zero;
 
 	public static GameDataMngr Singleton
 
