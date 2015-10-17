@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TriggerPortal : MonoBehaviour {
 
-	public SpecialEffect currentEffect;
+	public PlayerEffect currentEffect;
 	public string ToScene = "scene_2";
 	public PortalBehav currentBehav;
 

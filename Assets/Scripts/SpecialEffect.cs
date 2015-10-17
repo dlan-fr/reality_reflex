@@ -1,13 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
-public enum SpecialEffect
+public enum PlayerEffect
 {
 	NONE,
 	GRAVITY_INVERSE,
 	BACKGROUND_FADEOUT,
 	BACKGROUND_FADEIN
 
+}
+
+public enum GraphicEffect
+{
+	FADEOUT,
+	GUI_FADEOUT
 }
 
 public enum PortalBehav
