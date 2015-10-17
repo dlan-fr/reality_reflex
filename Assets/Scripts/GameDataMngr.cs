@@ -84,13 +84,21 @@ public class GameDataMngr {
 
 	public void ApplyEffect(GameObject player)
 	{
+		Quaternion current_rotation = player.GetComponentInChildren<SpriteRenderer>().transform.localRotation;
+
 		switch(currentEffect)
 		{
 			case PlayerEffect.NONE:
 			player.GetComponent<Rigidbody2D>().gravityScale = gravity;
+			player.GetComponentInChildren<SpriteRenderer>().transform.localRotation = Quaternion.Euler(current_rotation.eulerAngles.x, current_rotation.eulerAngles.y, 0);
+			//player.GetComponent<Rigidbody2D>().rotation = 0;
+			//player.GetComponentInChildren<Camera>().transform.rotation = Quaternion.Euler(0, 0, 0);
 			break;
 			case PlayerEffect.GRAVITY_INVERSE:
 			player.GetComponent<Rigidbody2D>().gravityScale = -gravity;
+			player.GetComponentInChildren<SpriteRenderer>().transform.localRotation = Quaternion.Euler(current_rotation.eulerAngles.x, current_rotation.eulerAngles.y, 180);
+			//player.GetComponent<Rigidbody2D>().rotation = 180;
+			//player.GetComponentInChildren<Camera>().transform.rotation = Quaternion.Euler(0, 0, -180);
 			break;
 			case PlayerEffect.BACKGROUND_FADEOUT:
 
