@@ -23,6 +23,8 @@ public class GameDataMngr {
 	public int nbreMorts = 0;
 	public bool collision = false;
 
+	public float gravity = 5;
+
 	public List<Effet> graphEffects = new List<Effet>();
 
 	
@@ -85,10 +87,10 @@ public class GameDataMngr {
 		switch(currentEffect)
 		{
 			case PlayerEffect.NONE:
-				player.GetComponent<Rigidbody2D>().gravityScale = 1;
+			player.GetComponent<Rigidbody2D>().gravityScale = gravity;
 			break;
 			case PlayerEffect.GRAVITY_INVERSE:
-				player.GetComponent<Rigidbody2D>().gravityScale = -1;
+			player.GetComponent<Rigidbody2D>().gravityScale = -gravity;
 			break;
 			case PlayerEffect.BACKGROUND_FADEOUT:
 
