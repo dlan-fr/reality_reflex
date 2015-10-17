@@ -20,7 +20,24 @@ public class GameDataMngr {
 	public PlayerEffect currentEffect = PlayerEffect.NONE;
 	
 	public int nbreReliques = 0;
-	public int nbreMorts = 0;
+	private int _nbreVies = 3;
+	public int nbreVies 
+	{
+		get
+		{
+			return _nbreVies;
+		} 
+		set
+		{_nbreVies=value;
+		GameObject.Find("Vies").GetComponent<GUIText>().text = "Vies : "+ GameDataMngr.Singleton.nbreVies.ToString();
+		if (value<=0)
+			{
+				nbreVies = 3; 
+				SetNewLevel("multiverse",PlayerEffect.NONE);
+			}
+		}
+	}
+	
 	public bool collision = false;
 
 	public float gravity = 5;
@@ -52,8 +69,12 @@ public class GameDataMngr {
 		GameObject text2 = new GameObject ("Reliques", typeof(GUIText));
 		text2.GetComponent<GUIText>().text = "Reliques : "+ nbreReliques.ToString();
 		text2.GetComponent<GUIText>().transform.position = new Vector3(0.9f, 1.0f, 0f); 
+		GameObject text3 = new GameObject ("Vies", typeof(GUIText));
+		text3.GetComponent<GUIText>().text = "Vies : "+ nbreVies.ToString();
+		text3.GetComponent<GUIText>().transform.position = new Vector3(0.8f, 1.0f, 0f); 
 		HUD.Add(text);
 		HUD.Add(text2);
+		HUD.Add(text3);
 		return HUD;
 	}
 
