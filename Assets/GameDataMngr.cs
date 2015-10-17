@@ -38,6 +38,12 @@ public class GameDataMngr {
 	public void Respawn(GameObject player)
 	{
 		player.transform.position = LevelStartPos;
+
+		currentEffect = SpecialEffect.NONE;
+		player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+		player.GetComponent<Rigidbody2D>().angularVelocity = 0.0f;
+		this.ApplyEffect(player);
+
 	}
 
 	public void ApplyEffect(GameObject player)
