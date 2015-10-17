@@ -24,6 +24,7 @@ public class Deplacement : MonoBehaviour {
 	private SpriteRenderer sprite;
 
 	private CircleCollider2D feet;
+	private CircleCollider2D head;
 	
 	
 	// Use this for initialization
@@ -39,7 +40,18 @@ public class Deplacement : MonoBehaviour {
 		_currentAnimationState = STATE_IDLE;
 
 		sprite = GetComponentInChildren<SpriteRenderer>();
-		feet = GetComponentInChildren<CircleCollider2D>();
+		CircleCollider2D[] val = GetComponentsInChildren<CircleCollider2D>();
+
+		foreach(CircleCollider2D oval in val)
+		{
+			if(oval.name =="Pied")
+				feet = oval;
+			else if(oval.name == "Tete")
+				head = oval;
+
+		}
+
+
 
 	}
 
@@ -69,17 +81,20 @@ public class Deplacement : MonoBehaviour {
 
 	void changeDirection(string direction)
 	{
-		
+
+		Quaternion current_rotation = GetComponentInChildren<SpriteRenderer>().transform.localRotation;
+
+
 		if (_currentDirection != direction)
 		{
 			if (direction == "right")
 			{
-				sprite.transform.localRotation = Quaternion.Euler(0, 0, 0);
+				sprite.transform.localRotation = Quaternion.Euler(current_rotation.eulerAngles.x, (current_rotation.eulerAngles.z == 0.0f)?0.0f:180.0f, current_rotation.eulerAngles.z);
 				_currentDirection = "right";
 			}
 			else if (direction == "left")
 			{
-				sprite.transform.localRotation = Quaternion.Euler(0, 180, 0);
+				sprite.transform.localRotation = Quaternion.Euler(current_rotation.eulerAngles.x, (current_rotation.eulerAngles.z == 0.0f)?180.0f:0.0f, current_rotation.eulerAngles.z);
 				_currentDirection = "left";
 			}
 		}
@@ -91,8 +106,12 @@ public class Deplacement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		bool onground = false;
 
-		bool onground = feet.IsTouchingLayers(1);
+		if(GetComponent<Rigidbody2D>().gravityScale > 0)
+			onground = feet.IsTouchingLayers(1);
+		else if(GetComponent<Rigidbody2D>().gravityScale < 0)
+			onground = head.IsTouchingLayers(1);
 
 	//	Debug.Log("ground val "+onground.ToString());
 
@@ -127,7 +146,7 @@ public class Deplacement : MonoBehaviour {
 			{
 
 				if(Mathf.Abs(currentvelocity.y) < VelmaxY)
-					force.y = 70 * jump;
+				force.y = (70 * jump) * Mathf.Sign(GetComponent<Rigidbody2D>().gravityScale);
 
 			pressed = true;
 		//GetComponent<Rigidbody2D>().AddForce(new Vector2(0,100*jump));
