@@ -35,7 +35,7 @@ public class Deplacement : MonoBehaviour {
                         deplac.x += speed; 
                 }
 				
-				if(Input.GetKeyDown(KeyCode.Z) && (GameDataMngr.Singleton.collision))
+				if(Input.GetKeyDown(KeyCode.Z))// && (GameDataMngr.Singleton.collision))
 				{
 					GetComponent<Rigidbody2D>().AddForce(new Vector2(0,100*jump));
 				}
