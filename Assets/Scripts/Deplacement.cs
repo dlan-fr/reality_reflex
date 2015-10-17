@@ -214,14 +214,6 @@ public class Deplacement : MonoBehaviour {
 			else
 				changeState(STATE_IDLE);
 
-		//Debug.Log("vel "+currentvelocity.ToString());
-
-	//	transform.position += force;
-
-		//float progress = (int)((animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f) * 100);
-
-			//Debug.Log("rank ? "+progress);
-
 		GameDataMngr.Singleton.UpdateEffects();
 	}
 
@@ -239,6 +231,14 @@ public class Deplacement : MonoBehaviour {
 			coll.gameObject.GetComponent<Renderer>().enabled = false;
 			coll.gameObject.GetComponent<Collider2D>().enabled = false;
 			GameObject.Find("Reliques").GetComponent<GUIText>().text = "Reliques : "+ GameDataMngr.Singleton.nbreReliques.ToString();
+		}
+		
+		//Ramassage de vies
+		if (coll.gameObject.tag=="Vie"){
+			GameDataMngr.Singleton.nbreVies++;
+			coll.gameObject.GetComponent<Renderer>().enabled = false;
+			coll.gameObject.GetComponent<Collider2D>().enabled = false;
+			GameObject.Find("Vies").GetComponent<GUIText>().text = "Vies : "+ GameDataMngr.Singleton.nbreVies.ToString();
 		}
 	}
 	

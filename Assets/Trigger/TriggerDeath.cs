@@ -15,7 +15,7 @@ public class TriggerDeath : MonoBehaviour {
 
 	
 	void OnTriggerEnter2D(Collider2D other) {
-		GameDataMngr.Singleton.nbreMorts++;
+		GameDataMngr.Singleton.nbreVies--;
 		GameDataMngr.Singleton.Respawn(GameObject.Find("Playercontroller"));
 	}
 }

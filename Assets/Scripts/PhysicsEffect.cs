@@ -54,7 +54,7 @@ public class PhysicsEffect : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D other) {
 		if(render.enabled)
 		{
-			GameDataMngr.Singleton.nbreMorts++;
+			GameDataMngr.Singleton.nbreVies--;
 			GameDataMngr.Singleton.Respawn(other.gameObject);
 		}
 	}
