@@ -37,7 +37,6 @@ public class Deplacement : MonoBehaviour {
                 transform.position += deplac;
 
 		GameDataMngr.Singleton.UpdateEffects();
-		GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
 	}
 
 	

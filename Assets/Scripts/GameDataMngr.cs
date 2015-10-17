@@ -140,6 +140,8 @@ public class GameDataMngr {
 		this.CurrentLevel = newlevel;
 		Application.LoadLevel(newlevel);
 
+		graphEffects.Clear();
+
 		this.currentEffect = effect;
 	}
 	
