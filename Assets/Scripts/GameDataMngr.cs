@@ -66,6 +66,7 @@ public class GameDataMngr {
 		player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		player.GetComponent<Rigidbody2D>().angularVelocity = 0.0f;
 		this.ApplyEffect(player);
+		
 
 	}
 
@@ -87,8 +88,6 @@ public class GameDataMngr {
 			case SpecialEffect.BACKGROUND_FADEOUT:
 
 				fond1 = GameObject.Find("fond1");
-				
-
 			break;
 		}
 	}
@@ -113,10 +112,6 @@ public class GameDataMngr {
 				}
 				
 			break;
-			
-			/*case SpecialEffect.GUI_FADEOUT:
-				
-			break;*/
 		}
 
 	}

@@ -13,10 +13,10 @@ public class Deplacement : MonoBehaviour {
 		GameDataMngr.Singleton.ApplyEffect(GameObject.Find("Playercontroller"));
 
 		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
-
-		/*foreach(GameObject t in liste){
-			Instantiate(t);
-		}*/
+		
+		
+		GameDataMngr.Singleton.currentEffect = SpecialEffect.GUI_FADEOUT;
+		GameDataMngr.Singleton.ApplyEffect(GameObject.Find("ui_text"));
 
 	}
 	
