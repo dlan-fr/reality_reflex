@@ -21,6 +21,7 @@ public class GameDataMngr {
 	
 	public int nbreReliques = 0;
 	public int nbreMorts = 0;
+	public bool collision = false;
 
 	public List<Effet> graphEffects = new List<Effet>();
 
@@ -145,7 +146,6 @@ public class GameDataMngr {
 		this.currentEffect = effect;
 	}
 	
-
 
 
 }

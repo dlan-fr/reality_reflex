@@ -18,9 +18,6 @@ public class Deplacement : MonoBehaviour {
 	private SpriteRenderer sprite;
 	
 	
-	private bool collision = false;
-	
-	
 	// Use this for initialization
 	void Start () {
 		GameDataMngr.Singleton.SetRespawn(GameObject.Find("Playercontroller"),GameObject.Find("Respawn"));
@@ -96,7 +93,7 @@ public class Deplacement : MonoBehaviour {
 					changeDirection("right");
                 }
 				
-				if(Input.GetKeyDown(KeyCode.Z) & collision)
+				if(Input.GetKeyDown(KeyCode.Z))// && (GameDataMngr.Singleton.collision))
 				{
 					GetComponent<Rigidbody2D>().AddForce(new Vector2(0,100*jump));
 				}
@@ -108,7 +105,7 @@ public class Deplacement : MonoBehaviour {
 
                 transform.position += deplac;
 
-		float progress = (int)((animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f) * 100);
+		//float progress = (int)((animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f) * 100);
 
 			//Debug.Log("rank ? "+progress);
 
@@ -117,8 +114,6 @@ public class Deplacement : MonoBehaviour {
 
 	
 	void OnCollisionEnter2D(Collision2D coll){
-		//Détection de collision
-		collision =true;
 	
 		//Déplacement avec les plateformes
 		if (coll.gameObject.tag=="PF"){
@@ -131,7 +126,6 @@ public class Deplacement : MonoBehaviour {
 			coll.gameObject.GetComponent<Renderer>().enabled = false;
 			coll.gameObject.GetComponent<Collider2D>().enabled = false;
 			GameObject.Find("Reliques").GetComponent<GUIText>().text = "Reliques : "+ GameDataMngr.Singleton.nbreReliques.ToString();
-			collision =true;
 		}
 	}
 	
@@ -139,7 +133,6 @@ public class Deplacement : MonoBehaviour {
 		if (coll.gameObject.tag=="PF"){
 			transform.parent=null;
 		}
-		collision=false;
 	}
 	
 }

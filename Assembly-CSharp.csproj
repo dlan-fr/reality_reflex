@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Deplacement.cs" />
+     <Compile Include="Assets\Scripts\DetectionSol.cs" />
      <Compile Include="Assets\Scripts\Effet.cs" />
      <Compile Include="Assets\Scripts\GameDataMngr.cs" />
      <Compile Include="Assets\Scripts\ObjetMouvant.cs" />
