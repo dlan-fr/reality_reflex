@@ -1,10 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameDataMngr {
 
-	private string CurrentLevel = "scene_1";
-	private string data = "balal";
+	private Dictionary<string,string> level_str = new Dictionary<string, string>()
+	{
+		{"niveau1","Et si la gravité changeait ?"},
+		{"niveau2", "Et si la gravité changeait ? 2 le retour"}
+	};
+
+
+	private string CurrentLevel = "niveau1";
 
 	private Vector3 LevelStartPos = Vector3.zero;
 
@@ -27,6 +34,14 @@ public class GameDataMngr {
 
 			return _singleton;
 		}
+	}
+
+	public GameObject CreateHud()
+	{
+		GameObject text = new GameObject ("text_ui", typeof(GUIText));
+		text.GetComponent<GUIText>().text = level_str[this.CurrentLevel];
+		text.GetComponent<GUIText>().transform.position = new Vector3(10f / (float)Screen.width, 1.0f, 0f); 
+		return text;
 	}
 
 

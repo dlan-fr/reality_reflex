@@ -10,6 +10,11 @@ public class Deplacement : MonoBehaviour {
 	void Start () {
 		GameDataMngr.Singleton.SetRespawn(GameObject.Find("Playercontroller"),GameObject.Find("Respawn"));
 		GameDataMngr.Singleton.ApplyEffect(GameObject.Find("Playercontroller"));
+
+		GameObject text =  GameDataMngr.Singleton.CreateHud();
+
+		Instantiate(text);
+
 	}
 	
 	// Update is called once per frame
