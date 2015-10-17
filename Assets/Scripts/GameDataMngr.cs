@@ -6,12 +6,13 @@ public class GameDataMngr {
 
 	private Dictionary<string,string> level_str = new Dictionary<string, string>()
 	{
+		{"multiverse","Ici abandonne tout espoir..."},
 		{"niveau1","Et si la gravité changeait ?"},
 		{"niveau2", "Et si la gravité changeait ? 2 le retour"}
 	};
 
 
-	private string CurrentLevel = "niveau1";
+	private string CurrentLevel = "multiverse";
 
 	private Vector3 LevelStartPos = Vector3.zero;
 
