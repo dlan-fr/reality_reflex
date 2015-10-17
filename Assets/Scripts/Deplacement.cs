@@ -15,7 +15,15 @@ public class Deplacement : MonoBehaviour {
 
 	private string _currentDirection = "right";
 
+	private float VelmaxX = 10.0f;
+
+	private float VelmaxY = 10.0f;
+
+
+
 	private SpriteRenderer sprite;
+
+	private CircleCollider2D feet;
 	
 	
 	// Use this for initialization
@@ -31,7 +39,7 @@ public class Deplacement : MonoBehaviour {
 		_currentAnimationState = STATE_IDLE;
 
 		sprite = GetComponentInChildren<SpriteRenderer>();
-		
+		feet = GetComponentInChildren<CircleCollider2D>();
 
 	}
 
@@ -77,33 +85,69 @@ public class Deplacement : MonoBehaviour {
 		}
 		
 	}
+
+	float dep = 50.0f;
 	
 	// Update is called once per frame
 	void Update () {
-		Vector3 deplac = new Vector3();
+
+
+		bool onground = feet.IsTouchingLayers(1);
+
+	//	Debug.Log("ground val "+onground.ToString());
+
+
+		Vector2 force = new Vector2();
+
+		bool pressed = false;
+
+		Vector2 currentvelocity = GetComponent<Rigidbody2D>().velocity;
+
+		//Vector3 deplac = new Vector3();
  
-                if (Input.GetKey (KeyCode.Q)) {
-                        deplac.x -= speed;
+		if (Input.GetKey (KeyCode.Q) ) {
+			if(Mathf.Abs(currentvelocity.x) < VelmaxX)
+				force.x = -dep;
+			//deplac.x -= speed;
 					changeDirection("left");
+			pressed = true;
 
                 }
  
-                if (Input.GetKey (KeyCode.D)) {
-                        deplac.x += speed; 
+		if (Input.GetKey (KeyCode.D) ) {
+
+			if(Mathf.Abs(currentvelocity.x) < VelmaxX)
+				force.x = dep;
+                       // deplac.x += speed; 
 					changeDirection("right");
+			pressed = true;
                 }
 				
-				if(Input.GetKeyDown(KeyCode.Z))// && (GameDataMngr.Singleton.collision))
-				{
-					GetComponent<Rigidbody2D>().AddForce(new Vector2(0,100*jump));
-				}
+			if(Input.GetKeyDown(KeyCode.Z) && onground)// && (GameDataMngr.Singleton.collision))
+			{
 
-			if(deplac != Vector3.zero)
+				if(Mathf.Abs(currentvelocity.y) < VelmaxY)
+					force.y = 70 * jump;
+
+			pressed = true;
+		//GetComponent<Rigidbody2D>().AddForce(new Vector2(0,100*jump));
+			}
+
+		//if(force != Vector2.zero)
+		if(pressed)
+			GetComponent<Rigidbody2D>().AddForce(force,ForceMode2D.Force);
+		else
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f,currentvelocity.y);
+			
+
+			if(pressed)
 				changeState(STATE_WALK);
 			else
 				changeState(STATE_IDLE);
 
-                transform.position += deplac;
+		//Debug.Log("vel "+currentvelocity.ToString());
+
+	//	transform.position += force;
 
 		//float progress = (int)((animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1.0f) * 100);
 
