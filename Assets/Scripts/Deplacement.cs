@@ -123,14 +123,13 @@ public class Deplacement : MonoBehaviour {
 			pressed = true;
                 }
 				
-			if(Input.GetKeyDown(KeyCode.Z) && onground)// && (GameDataMngr.Singleton.collision))
+			if(Input.GetKeyDown(KeyCode.Z) && onground)
 			{
 
 				if(Mathf.Abs(currentvelocity.y) < VelmaxY)
 					force.y = 70 * jump;
 
 			pressed = true;
-		//GetComponent<Rigidbody2D>().AddForce(new Vector2(0,100*jump));
 			}
 
 		//if(force != Vector2.zero)
