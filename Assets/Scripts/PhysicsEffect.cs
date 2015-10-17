@@ -6,11 +6,15 @@ public class PhysicsEffect : MonoBehaviour {
 	private Animator animator;
 	private SpriteRenderer render;
 
+	public AudioClip son_effet;
+
 
 
 	public float timewait = 500.0f;
 
 	private float c_timewait;
+
+	private AudioSource sound_player;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +22,10 @@ public class PhysicsEffect : MonoBehaviour {
 		animator = GetComponent<Animator>();
 		render = GetComponent<SpriteRenderer>();
 		c_timewait = timewait;
+
+		sound_player = GetComponent<AudioSource>();
+
+		sound_player.PlayOneShot(son_effet);
 	
 	}
 	
@@ -33,6 +41,7 @@ public class PhysicsEffect : MonoBehaviour {
 				animator.Play(0);
 				c_timewait = timewait;
 				render.enabled = true;
+				sound_player.PlayOneShot(son_effet);
 			}
 			else
 			{

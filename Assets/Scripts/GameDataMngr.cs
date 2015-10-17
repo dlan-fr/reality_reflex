@@ -27,6 +27,14 @@ public class GameDataMngr {
 
 	public List<Effet> graphEffects = new List<Effet>();
 
+
+	private GameObject music_node = null;
+
+	private AudioClip music_amb_1;
+	private AudioClip music_amb_2;
+
+	//private AudioSource music_player = null;
+
 	
 	private static GameDataMngr _singleton = null;
 	
@@ -55,6 +63,20 @@ public class GameDataMngr {
 		HUD.Add(text);
 		HUD.Add(text2);
 		return HUD;
+	}
+
+	public void CreateMusic(AudioClip music_1,AudioClip music_2)
+	{
+		if(music_node == null)
+		{
+			music_node = new GameObject("music_node",typeof(AudioSource));
+			music_amb_1 = music_1;
+			music_amb_2 = music_2;
+			music_node.GetComponent<AudioSource>().clip = music_1;
+			music_node.GetComponent<AudioSource>().Play();
+			Object.DontDestroyOnLoad(music_node);
+
+		}
 	}
 
 
@@ -91,10 +113,16 @@ public class GameDataMngr {
 			case PlayerEffect.NONE:
 			player.GetComponent<Rigidbody2D>().gravityScale = gravity;
 			player.GetComponentInChildren<SpriteRenderer>().transform.localRotation = Quaternion.Euler(current_rotation.eulerAngles.x, current_rotation.eulerAngles.y, 0);
+
+			//Deplacement player_script = player.GetComponent<Deplacement>();
+			//player_script.PlayAudioGravity(false);
+
 			//player.GetComponent<Rigidbody2D>().rotation = 0;
 			//player.GetComponentInChildren<Camera>().transform.rotation = Quaternion.Euler(0, 0, 0);
 			break;
 			case PlayerEffect.GRAVITY_INVERSE:
+			Deplacement player_script = player.GetComponent<Deplacement>();
+			player_script.PlayAudioGravity(true);
 			player.GetComponent<Rigidbody2D>().gravityScale = -gravity;
 			player.GetComponentInChildren<SpriteRenderer>().transform.localRotation = Quaternion.Euler(current_rotation.eulerAngles.x, current_rotation.eulerAngles.y, 180);
 			//player.GetComponent<Rigidbody2D>().rotation = 180;

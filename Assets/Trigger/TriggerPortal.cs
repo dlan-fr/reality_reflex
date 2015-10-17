@@ -7,8 +7,14 @@ public class TriggerPortal : MonoBehaviour {
 	public string ToScene = "scene_2";
 	public PortalBehav currentBehav;
 
-	// Use this for initialization
+	public AudioClip son_mirroir;
+
+	private AudioSource sound_player;
+	    
+	// Use this for initialization 
 	void Start () {
+
+		sound_player = GetComponent<AudioSource>();
 	
 	}
 	
@@ -20,6 +26,8 @@ public class TriggerPortal : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
+
+		sound_player.PlayOneShot(son_mirroir);
 
 		if(currentBehav == PortalBehav.SWITCH_LEVEL)
 			GameDataMngr.Singleton.SetNewLevel(ToScene,currentEffect);

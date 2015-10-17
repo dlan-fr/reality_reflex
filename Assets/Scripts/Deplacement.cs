@@ -18,6 +18,15 @@ public class Deplacement : MonoBehaviour {
 	private float VelmaxX = 10.0f;
 
 	private float VelmaxY = 10.0f;
+	
+	public AudioClip son_saut;
+	public AudioClip son_gravite;
+	public AudioClip son_inverse_gravite;
+
+	public AudioClip[] sons_pas;
+
+	public AudioClip son_ambi_1;
+	public AudioClip son_ambi_2;
 
 
 
@@ -25,7 +34,9 @@ public class Deplacement : MonoBehaviour {
 
 	private CircleCollider2D feet;
 	private CircleCollider2D head;
-	
+
+
+	private AudioSource sound_player;
 	
 	// Use this for initialization
 	void Start () {
@@ -33,6 +44,7 @@ public class Deplacement : MonoBehaviour {
 		GameDataMngr.Singleton.ApplyEffect(GameObject.Find("Playercontroller"));
 
 		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
+		GameDataMngr.Singleton.CreateMusic(son_ambi_1,son_ambi_2);
 
 		GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
 
@@ -51,9 +63,12 @@ public class Deplacement : MonoBehaviour {
 
 		}
 
+		sound_player = GetComponent<AudioSource>();
+
 
 
 	}
+
 
 	void changeState(int state){
 		
@@ -99,6 +114,11 @@ public class Deplacement : MonoBehaviour {
 			}
 		}
 		
+	}
+
+	public void PlayAudioGravity(bool inversegravity)
+	{
+		sound_player.PlayOneShot((inversegravity)?son_inverse_gravite:son_gravite);
 	}
 
 	float dep = 50.0f;
@@ -173,7 +193,8 @@ public class Deplacement : MonoBehaviour {
 				
 			if(Input.GetKeyDown(KeyCode.Z) && onground)
 			{
-
+				sound_player.PlayOneShot(son_saut);
+				
 				if(Mathf.Abs(currentvelocity.y) < VelmaxY)
 					force.y = (70 * jump) * Mathf.Sign(GetComponent<Rigidbody2D>().gravityScale);
 
