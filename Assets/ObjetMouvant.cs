@@ -44,4 +44,5 @@ public class ObjetMouvant : MonoBehaviour {
 		
 		transform.position += deplac;
 	}
+	
 }
