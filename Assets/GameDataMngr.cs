@@ -16,7 +16,9 @@ public class GameDataMngr {
 	private Vector3 LevelStartPos = Vector3.zero;
 
 	public SpecialEffect currentEffect = SpecialEffect.NONE;
+	
 	public int nbreReliques = 0;
+	public int nbreMorts = 0;
 
 	
 	private static GameDataMngr _singleton = null;
@@ -34,12 +36,18 @@ public class GameDataMngr {
 		}
 	}
 
-	public GameObject CreateHud()
+	public List<GameObject> CreateHud()
 	{
+		List<GameObject> HUD = new List<GameObject>();
 		GameObject text = new GameObject ("text_ui", typeof(GUIText));
 		text.GetComponent<GUIText>().text = level_str[this.CurrentLevel];
 		text.GetComponent<GUIText>().transform.position = new Vector3(10f / (float)Screen.width, 1.0f, 0f); 
-		return text;
+		GameObject text2 = new GameObject ("Reliques", typeof(GUIText));
+		text2.GetComponent<GUIText>().text = "Reliques : "+ nbreReliques.ToString();
+		text2.GetComponent<GUIText>().transform.position = new Vector3(0.9f, 1.0f, 0f); 
+		HUD.Add(text);
+		HUD.Add(text2);
+		return HUD;
 	}
 
 

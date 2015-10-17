@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Deplacement : MonoBehaviour {
 	public float speed;
@@ -11,9 +12,11 @@ public class Deplacement : MonoBehaviour {
 		GameDataMngr.Singleton.SetRespawn(GameObject.Find("Playercontroller"),GameObject.Find("Respawn"));
 		GameDataMngr.Singleton.ApplyEffect(GameObject.Find("Playercontroller"));
 
-		GameObject text =  GameDataMngr.Singleton.CreateHud();
+		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
 
-		Instantiate(text);
+		/*foreach(GameObject t in liste){
+			Instantiate(t);
+		}*/
 
 	}
 	
@@ -46,7 +49,8 @@ public class Deplacement : MonoBehaviour {
 		if (coll.gameObject.tag=="Relique"){
 			GameDataMngr.Singleton.nbreReliques++;
 			coll.gameObject.GetComponent<Renderer>().enabled = false;
-			Debug.Log("Relique");
+			coll.gameObject.GetComponent<Collider2D>().enabled = false;
+			GameObject.Find("Reliques").GetComponent<GUIText>().text = "Reliques : "+ GameDataMngr.Singleton.nbreReliques.ToString();
 		}
 	}
 	
