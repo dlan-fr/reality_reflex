@@ -7,6 +7,7 @@ public class Deplacement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GameDataMngr.Singleton.SetRespawn(GameObject.Find("Playercontroller"),GameObject.Find("Respawn"));
+		GameDataMngr.Singleton.ApplyEffect(GameObject.Find("Playercontroller"));
 	}
 	
 	// Update is called once per frame
@@ -27,4 +28,6 @@ public class Deplacement : MonoBehaviour {
  
                 transform.position += deplac;
 	}
+
+
 }
