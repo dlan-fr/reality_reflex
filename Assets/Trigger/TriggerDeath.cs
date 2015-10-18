@@ -15,6 +15,12 @@ public class TriggerDeath : MonoBehaviour {
 
 	
 	void OnTriggerEnter2D(Collider2D other) {
-		GameDataMngr.Singleton.nbreVies--;
+
+		GameObject player = GameObject.Find("Playercontroller");
+		
+		Deplacement player_script = player.GetComponent<Deplacement>();
+
+		if(!player_script.isDead)
+			GameDataMngr.Singleton.nbreVies--;
 	}
 }
