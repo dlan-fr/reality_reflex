@@ -48,6 +48,8 @@ public class GameDataMngr {
 
 		}
 	}
+
+	public bool gameended = false;
 	
 	public bool collision = false;
 
@@ -95,7 +97,7 @@ public class GameDataMngr {
 	{
 		List<GameObject> HUD = new List<GameObject>();
 
-		if(CurrentLevel != "Menu" && CurrentLevel != "Credit")
+		if(CurrentLevel.ToLower() != "menu" && CurrentLevel.ToLower() != "credit")
 		{
 
 
@@ -281,6 +283,12 @@ public class GameDataMngr {
 
 	public void SetNewLevel(string newlevel,PlayerEffect effect)
 	{
+		if(newlevel.ToLower() == "credit" && this.CurrentLevel == "niveau6")
+			gameended = true;
+
+		if(newlevel.ToLower() == "menu" && gameended)
+			gameended = false;
+
 		requested_level = newlevel;
 		request_effect = effect;
 		doTransition = true;
