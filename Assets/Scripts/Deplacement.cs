@@ -11,6 +11,7 @@ public class Deplacement : MonoBehaviour {
 	const int STATE_IDLE = 0;
 	const int STATE_WALK = 1;
 	const int STATE_DEATH = 2;
+	const int STATE_JUMP = 3;
 
 	private int _currentAnimationState;
 
@@ -105,6 +106,10 @@ public class Deplacement : MonoBehaviour {
 			case STATE_DEATH:
 				animator.SetInteger ("state", STATE_DEATH);
 			break;
+
+			case STATE_JUMP:
+				animator.SetInteger("state",STATE_JUMP);
+			break;
 			
 
 			
@@ -155,6 +160,15 @@ public class Deplacement : MonoBehaviour {
 	}
 
 	float dep = 50.0f;
+
+	bool checkonair(Vector2 force,Vector2 velocity)
+	{
+		if(GetComponent<Rigidbody2D>().gravityScale > 0)
+			return (force.y > 0 || velocity.y > 0);
+		else
+			return (force.y < 0 || velocity.y < 0);
+
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -162,6 +176,8 @@ public class Deplacement : MonoBehaviour {
 		if(GameDataMngr.Singleton.doTransition)
 		{
 			changeState(STATE_IDLE);
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f,0.0f);
+
 			GameDataMngr.Singleton.UpdateMngr();
 			return;
 		}
@@ -247,10 +263,13 @@ public class Deplacement : MonoBehaviour {
 					changeDirection("right");
 			pressed = true;
                 }
-				
+
+		
 			if(Input.GetKeyDown(KeyCode.Z) && onground)
 			{
 				sound_player.PlayOneShot(son_saut);
+
+				
 				
 				if(Mathf.Abs(currentvelocity.y) < VelmaxY)
 					force.y = (70 * jump) * Mathf.Sign(GetComponent<Rigidbody2D>().gravityScale);
@@ -259,7 +278,12 @@ public class Deplacement : MonoBehaviour {
 			}
 
 
-		//if(force != Vector2.zero)
+
+		if(checkonair(force,currentvelocity) && !onslope)
+			changeState(STATE_JUMP);
+
+
+
 		if(pressed)
 			GetComponent<Rigidbody2D>().AddForce(force,ForceMode2D.Force);
 		else
@@ -268,20 +292,33 @@ public class Deplacement : MonoBehaviour {
 
 		if(pressed)
 		{
-			if(!sound_player.isPlaying)
+			if(onground)
 			{
-				//sélection d'un son de pas au hazard
-				int rand_son = Random.Range(0,sons_pas.Length-1);
+				if(!sound_player.isPlaying)
+				{
+					//sélection d'un son de pas au hazard
+					int rand_son = Random.Range(0,sons_pas.Length-1);
 
-				sound_player.PlayOneShot(sons_pas[rand_son]);
+					sound_player.PlayOneShot(sons_pas[rand_son]);
+				}
+
+				if(_currentAnimationState != STATE_JUMP || !checkonair(force,currentvelocity) || onslope )
+					changeState(STATE_WALK);
+
+
 			}
-
-			changeState(STATE_WALK);
 		}
 		else
-			changeState(STATE_IDLE);
+		{
+			if((onground && !checkonair(force,currentvelocity)) || onslope)
+				changeState(STATE_IDLE);
+		}
+
+		//if(_currentAnimationState == STATE_JUMP && currentvelocity.y <= 0 && onground && !justjump)
+			//changeState(STATE_IDLE);
 
 		GameDataMngr.Singleton.UpdateEffects();
+		
 	}
 
 	
