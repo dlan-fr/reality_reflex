@@ -157,6 +157,13 @@ public class Deplacement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if(GameDataMngr.Singleton.doTransition)
+		{
+			GameDataMngr.Singleton.UpdateMngr();
+			return;
+		}
+
+
 		if(isDead)
 		{
 			DeathTimeout -= Time.deltaTime * 1000.0f;

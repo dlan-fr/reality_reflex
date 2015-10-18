@@ -59,6 +59,9 @@ public class GameDataMngr {
 
 	//private AudioSource music_player = null;
 
+	private const float TRANSITION_TIME = 2000.0f;
+	private float switch_level_transtion;
+
 	
 	private static GameDataMngr _singleton = null;
 	
@@ -73,6 +76,11 @@ public class GameDataMngr {
 
 			return _singleton;
 		}
+	}
+
+	public  GameDataMngr()
+	{
+		switch_level_transtion = TRANSITION_TIME;
 	}
 
 	public List<GameObject> CreateHud()
@@ -215,15 +223,41 @@ public class GameDataMngr {
 
 	}
 
+	private string requested_level = string.Empty;
+	private PlayerEffect request_effect = PlayerEffect.NONE;
+
+	public bool doTransition = false;
+
+	public void UpdateMngr()
+	{
+		if(doTransition)
+		{
+			if(switch_level_transtion <= 0)
+			{
+
+				this.CurrentLevel = requested_level;
+				Application.LoadLevel(requested_level);
+
+				graphEffects.Clear();
+
+				this.currentEffect = request_effect;
+				doTransition = false;
+				switch_level_transtion = TRANSITION_TIME;
+			}
+			else
+			{
+				switch_level_transtion -= Time.deltaTime * 1000.0f;
+			}
+		}
+	}
+
 
 	public void SetNewLevel(string newlevel,PlayerEffect effect)
 	{
-		this.CurrentLevel = newlevel;
-		Application.LoadLevel(newlevel);
+		requested_level = newlevel;
+		request_effect = effect;
+		doTransition = true;
 
-		graphEffects.Clear();
-
-		this.currentEffect = effect;
 	}
 	
 

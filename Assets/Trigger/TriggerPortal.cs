@@ -30,7 +30,9 @@ public class TriggerPortal : MonoBehaviour {
 		sound_player.PlayOneShot(son_mirroir);
 
 		if(currentBehav == PortalBehav.SWITCH_LEVEL)
+		{
 			GameDataMngr.Singleton.SetNewLevel(ToScene,currentEffect);
+		}
 		else if(currentBehav == PortalBehav.SWITCH_MECHANICS)
 		{
 			GameDataMngr.Singleton.currentEffect = currentEffect;
