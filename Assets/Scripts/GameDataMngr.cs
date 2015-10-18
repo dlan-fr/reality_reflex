@@ -97,6 +97,7 @@ public class GameDataMngr {
 	public  GameDataMngr()
 	{
 		switch_level_transtion = TRANSITION_TIME;
+		Cursor.visible = false;
 		
 	}
 
