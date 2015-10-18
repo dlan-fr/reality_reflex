@@ -11,8 +11,8 @@ public class GameDataMngr {
 		{"multiverse","Ici abandonne tout espoir..."},
 		{"niveau1","Et si la gravité changeait ?"},
 		{"niveau2", "Et si la gravité changeait ? 2 le retour"},
-		{"niveau3","Le saut est la clé"},
-		{"niveau4","De la gravité dans l'espace ?"}
+		{"niveau4","Le saut est la clé"},
+		{"niveau5","De la gravité dans l'espace ?"}
 	};
 
 
@@ -97,12 +97,15 @@ public class GameDataMngr {
 			GameObject text = new GameObject ("text_ui", typeof(GUIText));
 			text.GetComponent<GUIText>().text = level_str[this.CurrentLevel];
 			text.GetComponent<GUIText>().transform.position = new Vector3(10f / (float)Screen.width, 1.0f, 0f); 
+			text.GetComponent<GUIText>().fontSize = 24;
 			GameObject text2 = new GameObject ("Reliques", typeof(GUIText));
 			text2.GetComponent<GUIText>().text = "Reliques : "+ nbreReliques.ToString();
-			text2.GetComponent<GUIText>().transform.position = new Vector3(0.9f, 1.0f, 0f); 
+			text2.GetComponent<GUIText>().transform.position = new Vector3(0.85f, 1.0f, 0f); 
+			text2.GetComponent<GUIText>().fontSize = 24;
 			GameObject text3 = new GameObject ("Vies", typeof(GUIText));
 			text3.GetComponent<GUIText>().text = "Vies : "+ nbreVies.ToString();
-			text3.GetComponent<GUIText>().transform.position = new Vector3(0.8f, 1.0f, 0f); 
+			text3.GetComponent<GUIText>().transform.position = new Vector3(0.7f, 1.0f, 0f); 
+			text3.GetComponent<GUIText>().fontSize = 24;
 			HUD.Add(text);
 			HUD.Add(text2);
 			HUD.Add(text3);
