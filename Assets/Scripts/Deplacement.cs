@@ -38,6 +38,8 @@ public class Deplacement : MonoBehaviour {
 	public AudioClip son_ambi_1;
 	public AudioClip son_ambi_2;
 
+	public Font steamfont;
+
 
 	public Sprite default_sprite;
 
@@ -66,7 +68,7 @@ public class Deplacement : MonoBehaviour {
 		GameDataMngr.Singleton.SetRespawn(GameObject.Find("Playercontroller"),GameObject.Find("Respawn"));
 		GameDataMngr.Singleton.ApplyEffect(GameObject.Find("Playercontroller"));
 
-		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
+		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud(steamfont);
 		GameDataMngr.Singleton.CreateMusic(son_ambi_1,son_ambi_2);
 
 

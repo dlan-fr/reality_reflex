@@ -68,6 +68,7 @@ public class GameDataMngr {
 
 
 	public PouvoirJoueur PouvJoueur = new PouvoirJoueur();
+
 	
 	private static GameDataMngr _singleton = null;
 	
@@ -87,25 +88,31 @@ public class GameDataMngr {
 	public  GameDataMngr()
 	{
 		switch_level_transtion = TRANSITION_TIME;
+		
 	}
 
-	public List<GameObject> CreateHud()
+	public List<GameObject> CreateHud(Font steamfont)
 	{
 		List<GameObject> HUD = new List<GameObject>();
 
 		if(CurrentLevel != "Menu" && CurrentLevel != "Credit")
 		{
+
+
 			GameObject text = new GameObject ("text_ui", typeof(GUIText));
 			text.GetComponent<GUIText>().text = level_str[this.CurrentLevel];
+			text.GetComponent<GUIText>().font = steamfont;
 			text.GetComponent<GUIText>().transform.position = new Vector3(10f / (float)Screen.width, 1.0f, 0f); 
 			text.GetComponent<GUIText>().fontSize = 24;
 			GameObject text2 = new GameObject ("Reliques", typeof(GUIText));
 			text2.GetComponent<GUIText>().text = "Reliques : "+ nbreReliques.ToString();
 			text2.GetComponent<GUIText>().transform.position = new Vector3(0.85f, 1.0f, 0f); 
+			text2.GetComponent<GUIText>().font = steamfont;
 			text2.GetComponent<GUIText>().fontSize = 24;
 			GameObject text3 = new GameObject ("Vies", typeof(GUIText));
 			text3.GetComponent<GUIText>().text = "Vies : "+ nbreVies.ToString();
 			text3.GetComponent<GUIText>().transform.position = new Vector3(0.7f, 1.0f, 0f); 
+			text3.GetComponent<GUIText>().font = steamfont;
 			text3.GetComponent<GUIText>().fontSize = 24;
 			HUD.Add(text);
 			HUD.Add(text2);
