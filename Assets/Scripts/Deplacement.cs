@@ -99,6 +99,19 @@ public class Deplacement : MonoBehaviour {
 			if(obj != null)
 			{
 				obj.GetComponentInChildren<Text>().enabled = true;
+				GameObject text4 = new GameObject ("Resultat", typeof(GUIText));
+				text4.GetComponent<GUIText>().font = steamfont;
+				text4.GetComponent<GUIText>().text = "Reliques ramassées : "+ GameDataMngr.Singleton.nbreReliques.ToString();
+				text4.GetComponent<GUIText>().transform.position = new Vector3(0.6f, 0.6f, 0f); 
+				text4.GetComponent<GUIText>().fontSize = 36;
+				if (GameDataMngr.Singleton.nbreReliques==7){
+					GameObject text5 = new GameObject ("Resultat2", typeof(GUIText));
+					text5.GetComponent<GUIText>().font = steamfont;
+					text5.GetComponent<GUIText>().text = "Vous avez ramassé le nombre max de reliques!";
+					text5.GetComponent<GUIText>().transform.position = new Vector3(0.5f, 0.5f, 0f); 
+					text5.GetComponent<GUIText>().fontSize = 24;
+				}
+				
 			}
 		}
 		else

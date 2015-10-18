@@ -24,7 +24,7 @@ public class GameDataMngr {
 
 	public PlayerEffect currentEffect = PlayerEffect.NONE;
 	
-	public int nbreReliques = 0;//nombre max 7
+	public int nbreReliques = 7;//nombre max 7
 	private int _nbreVies = 3;
 	public int nbreVies 
 	{
