@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\GameDataMngr.cs" />
      <Compile Include="Assets\Scripts\ObjetMouvant.cs" />
      <Compile Include="Assets\Scripts\PhysicsEffect.cs" />
+     <Compile Include="Assets\Scripts\PouvoirJoueur.cs" />
      <Compile Include="Assets\Scripts\Scene1_script.cs" />
      <Compile Include="Assets\Scripts\Scene2_script.cs" />
      <Compile Include="Assets\Scripts\SpecialEffect.cs" />

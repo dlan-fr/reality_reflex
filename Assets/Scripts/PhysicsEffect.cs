@@ -55,7 +55,6 @@ public class PhysicsEffect : MonoBehaviour {
 		if(render.enabled)
 		{
 			GameDataMngr.Singleton.nbreVies--;
-			GameDataMngr.Singleton.Respawn(other.gameObject);
 		}
 	}
 }

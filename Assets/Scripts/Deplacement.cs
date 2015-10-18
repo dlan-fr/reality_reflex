@@ -10,6 +10,7 @@ public class Deplacement : MonoBehaviour {
 
 	const int STATE_IDLE = 0;
 	const int STATE_WALK = 1;
+	const int STATE_DEATH = 2;
 
 	private int _currentAnimationState;
 
@@ -29,6 +30,11 @@ public class Deplacement : MonoBehaviour {
 	public AudioClip son_ambi_2;
 
 
+	public Sprite default_sprite;
+
+	public Sprite sprite_morte;
+
+
 
 	private SpriteRenderer sprite;
 
@@ -37,6 +43,14 @@ public class Deplacement : MonoBehaviour {
 
 
 	private AudioSource sound_player;
+
+	public bool isDead = false;
+
+	public bool IsGrave = false;
+
+	private const float DEATH_TIME = 2000.0f;
+
+	private float DeathTimeout = DEATH_TIME;
 	
 	// Use this for initialization
 	void Start () {
@@ -46,11 +60,12 @@ public class Deplacement : MonoBehaviour {
 		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
 		GameDataMngr.Singleton.CreateMusic(son_ambi_1,son_ambi_2);
 
-		GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
+
+		if(liste.Count > 0)
+			GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
 
 		animator = GetComponentInChildren<Animator>();
 		_currentAnimationState = STATE_IDLE;
-
 		sprite = GetComponentInChildren<SpriteRenderer>();
 		CircleCollider2D[] val = GetComponentsInChildren<CircleCollider2D>();
 
@@ -86,6 +101,10 @@ public class Deplacement : MonoBehaviour {
 				//animator.Play(1);
 				animator.SetInteger ("state", STATE_IDLE);
 				break;
+
+			case STATE_DEATH:
+				animator.SetInteger ("state", STATE_DEATH);
+			break;
 			
 
 			
@@ -121,10 +140,47 @@ public class Deplacement : MonoBehaviour {
 		sound_player.PlayOneShot((inversegravity)?son_inverse_gravite:son_gravite);
 	}
 
+	public void Death()
+	{
+		if(!isDead)
+		{
+			isDead = true;
+			sprite.sprite = sprite_morte;
+			Vector2 currentvelocity = GetComponent<Rigidbody2D>().velocity;
+
+			GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f,currentvelocity.y);
+			changeState(STATE_DEATH);
+		}
+
+	}
+
 	float dep = 50.0f;
 	
 	// Update is called once per frame
 	void Update () {
+
+		if(GameDataMngr.Singleton.doTransition)
+		{
+			GameDataMngr.Singleton.UpdateMngr();
+			return;
+		}
+
+
+		if(isDead)
+		{
+			DeathTimeout -= Time.deltaTime * 1000.0f;
+
+			if(DeathTimeout <= 0.0f)
+			{
+				DeathTimeout = DEATH_TIME;
+				sprite.sprite = default_sprite;
+				changeState(STATE_IDLE);
+				isDead = false;
+				GameDataMngr.Singleton.AfterDeath(this.gameObject);
+			}
+
+			return;
+		}
 
 		bool onground = false;
 		bool onslope = false;
@@ -209,10 +265,20 @@ public class Deplacement : MonoBehaviour {
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f,currentvelocity.y);
 			
 
-			if(pressed)
-				changeState(STATE_WALK);
-			else
-				changeState(STATE_IDLE);
+		if(pressed)
+		{
+			if(!sound_player.isPlaying)
+			{
+				//sélection d'un son de pas au hazard
+				int rand_son = Random.Range(0,sons_pas.Length-1);
+
+				sound_player.PlayOneShot(sons_pas[rand_son]);
+			}
+
+			changeState(STATE_WALK);
+		}
+		else
+			changeState(STATE_IDLE);
 
 		GameDataMngr.Singleton.UpdateEffects();
 	}
