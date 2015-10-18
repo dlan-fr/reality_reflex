@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -90,6 +91,23 @@ public class Deplacement : MonoBehaviour {
 		}
 
 		sound_player = GetComponent<AudioSource>();
+
+		GameObject obj = GameObject.Find("end_text");
+
+		if(GameDataMngr.Singleton.gameended)
+		{
+			if(obj != null)
+			{
+				obj.GetComponentInChildren<Text>().enabled = true;
+			}
+		}
+		else
+		{
+			if(obj != null)
+			{
+				obj.GetComponentInChildren<Text>().enabled = false;
+			}
+		}
 
 
 
