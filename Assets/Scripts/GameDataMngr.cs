@@ -28,13 +28,20 @@ public class GameDataMngr {
 			return _nbreVies;
 		} 
 		set
-		{_nbreVies=value;
-		GameObject.Find("Vies").GetComponent<GUIText>().text = "Vies : "+ GameDataMngr.Singleton.nbreVies.ToString();
-		if (value<=0)
+		{
+
+			GameObject player = GameObject.Find("Playercontroller");
+			
+			Deplacement player_script = player.GetComponent<Deplacement>();
+
+			if(!player_script.isDead)
 			{
-				nbreVies = 3; 
-				SetNewLevel("multiverse",PlayerEffect.NONE);
+				player_script.Death();
+
+				_nbreVies=value;
+				GameObject.Find("Vies").GetComponent<GUIText>().text = "Vies : "+ _nbreVies;
 			}
+
 		}
 	}
 	
@@ -98,6 +105,19 @@ public class GameDataMngr {
 			music_node.GetComponent<AudioSource>().Play();
 			Object.DontDestroyOnLoad(music_node);
 
+		}
+	}
+
+	public void AfterDeath(GameObject player)
+	{
+		if (_nbreVies<=0)
+		{
+			_nbreVies = 3; 
+			SetNewLevel("multiverse",PlayerEffect.NONE);
+		}
+		else
+		{
+			Respawn(player);
 		}
 	}
 
