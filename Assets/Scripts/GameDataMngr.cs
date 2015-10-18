@@ -23,7 +23,7 @@ public class GameDataMngr {
 
 	public PlayerEffect currentEffect = PlayerEffect.NONE;
 	
-	public int nbreReliques = 0;
+	public int nbreReliques = 0;//nombre max 7
 	private int _nbreVies = 3;
 	public int nbreVies 
 	{
@@ -42,7 +42,10 @@ public class GameDataMngr {
 				GameObject.Find("Vies").GetComponent<GUIText>().text = "Vies : "+ value;
 
 			if(!player_script.isDead && _nbreVies > value)
+			{
 				player_script.Death();
+				nbreReliques = 0;
+			}
 
 			_nbreVies=value;
 
