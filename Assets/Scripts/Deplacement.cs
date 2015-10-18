@@ -17,6 +17,14 @@ public class Deplacement : MonoBehaviour {
 
 	private string _currentDirection = "right";
 
+	public string CurrentDirection
+	{
+		get
+		{
+			return _currentDirection;
+		}
+	}
+
 	private float VelmaxX = 10.0f;
 
 	private float VelmaxY = 10.0f;
@@ -86,7 +94,7 @@ public class Deplacement : MonoBehaviour {
 	}
 
 
-	void changeState(int state){
+	public void changeState(int state){
 		
 		if (_currentAnimationState == state)
 			return;
@@ -114,17 +122,19 @@ public class Deplacement : MonoBehaviour {
 
 			
 		}
-		
+
 		_currentAnimationState = state;
 	}
 
-	void changeDirection(string direction)
+	public void changeDirection(string direction,bool overridedir)
 	{
+		if(sprite == null)
+			return;
 
 		Quaternion current_rotation = GetComponentInChildren<SpriteRenderer>().transform.localRotation;
 
 
-		if (_currentDirection != direction)
+		if (_currentDirection != direction || overridedir)
 		{
 			if (direction == "right")
 			{
@@ -163,10 +173,13 @@ public class Deplacement : MonoBehaviour {
 
 	bool checkonair(Vector2 force,Vector2 velocity)
 	{
+
 		if(GetComponent<Rigidbody2D>().gravityScale > 0)
-			return (force.y > 0 || velocity.y > 0);
+			return (force.y > 0.1f || velocity.y > 0.1f);
+		else if(GetComponent<Rigidbody2D>().gravityScale < 0)
+			return (force.y < -0.1f || velocity.y < -0.1f);
 		else
-			return (force.y < 0 || velocity.y < 0);
+			return false;
 
 	}
 	
@@ -242,7 +255,7 @@ public class Deplacement : MonoBehaviour {
 				{
 					force.x = -dep;
 				}
-				changeDirection("left");
+				changeDirection("left",false);
 				pressed = true;
 
                 }
@@ -261,7 +274,7 @@ public class Deplacement : MonoBehaviour {
 					force.x = dep;
 				}
 			// deplac.x += speed; 
-					changeDirection("right");
+					changeDirection("right",false);
 			pressed = true;
                 }
 

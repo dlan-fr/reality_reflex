@@ -16,6 +16,7 @@ public class GameDataMngr {
 	};
 
 
+	//private string CurrentLevel = "Menu";
 	private string CurrentLevel = "Menu";
 
 	private Vector3 LevelStartPos = Vector3.zero;
@@ -176,25 +177,26 @@ public class GameDataMngr {
 	{
 		Quaternion current_rotation = player.GetComponentInChildren<SpriteRenderer>().transform.localRotation;
 
+		Deplacement player_script = null;
+
 		switch(currentEffect)
 		{
 			case PlayerEffect.NONE:
 			player.GetComponent<Rigidbody2D>().gravityScale = gravity;
 			player.GetComponentInChildren<SpriteRenderer>().transform.localRotation = Quaternion.Euler(current_rotation.eulerAngles.x, current_rotation.eulerAngles.y, 0);
 
-			//Deplacement player_script = player.GetComponent<Deplacement>();
-			//player_script.PlayAudioGravity(false);
+			player_script = player.GetComponent<Deplacement>();
+			player_script.changeState(0);
+			player_script.changeDirection(player_script.CurrentDirection,true);
 
-			//player.GetComponent<Rigidbody2D>().rotation = 0;
-			//player.GetComponentInChildren<Camera>().transform.rotation = Quaternion.Euler(0, 0, 0);
 			break;
 			case PlayerEffect.GRAVITY_INVERSE:
-			Deplacement player_script = player.GetComponent<Deplacement>();
+			player_script = player.GetComponent<Deplacement>();
 			player_script.PlayAudioGravity(true);
 			player.GetComponent<Rigidbody2D>().gravityScale = -gravity;
 			player.GetComponentInChildren<SpriteRenderer>().transform.localRotation = Quaternion.Euler(current_rotation.eulerAngles.x, current_rotation.eulerAngles.y, 180);
-			//player.GetComponent<Rigidbody2D>().rotation = 180;
-			//player.GetComponentInChildren<Camera>().transform.rotation = Quaternion.Euler(0, 0, -180);
+			player_script.changeState(0);
+			player_script.changeDirection(player_script.CurrentDirection,true);
 			break;
 			case PlayerEffect.BACKGROUND_FADEOUT:
 
