@@ -37,13 +37,15 @@ public class GameDataMngr {
 			
 			Deplacement player_script = player.GetComponent<Deplacement>();
 
-			if(!player_script.isDead)
+			if(value >= 0)
 			{
-				player_script.Death();
-
 				_nbreVies=value;
+
 				GameObject.Find("Vies").GetComponent<GUIText>().text = "Vies : "+ _nbreVies;
 			}
+
+			if(!player_script.isDead && _nbreVies <= 0)
+				player_script.Death();
 
 		}
 	}
