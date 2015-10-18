@@ -12,7 +12,8 @@ public class GameDataMngr {
 		{"niveau1","Et si la gravité changeait ?"},
 		{"niveau2", "Et si la gravité changeait ? 2 le retour"},
 		{"niveau4","Le saut est la clé"},
-		{"niveau5","De la gravité dans l'espace ?"}
+		{"niveau5","De la gravité dans l'espace ?"},
+		{"niveau6","La fin ?"}
 	};
 
 
