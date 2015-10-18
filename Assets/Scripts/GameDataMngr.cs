@@ -6,7 +6,8 @@ public class GameDataMngr {
 
 	private Dictionary<string,string> level_str = new Dictionary<string, string>()
 	{
-		{"menu","message vide"},
+		{"Menu","message vide"},
+		{"Credit","message vide"},
 		{"multiverse","Ici abandonne tout espoir..."},
 		{"niveau1","Et si la gravité changeait ?"},
 		{"niveau2", "Et si la gravité changeait ? 2 le retour"},
@@ -14,7 +15,7 @@ public class GameDataMngr {
 	};
 
 
-	private string CurrentLevel = "menu";
+	private string CurrentLevel = "Menu";
 
 	private Vector3 LevelStartPos = Vector3.zero;
 
@@ -60,7 +61,7 @@ public class GameDataMngr {
 
 	//private AudioSource music_player = null;
 
-	private const float TRANSITION_TIME = 2000.0f;
+	private const float TRANSITION_TIME = 1000.0f;
 	private float switch_level_transtion;
 
 
@@ -90,7 +91,7 @@ public class GameDataMngr {
 	{
 		List<GameObject> HUD = new List<GameObject>();
 
-		if(CurrentLevel != "menu")
+		if(CurrentLevel != "Menu" && CurrentLevel != "Credit")
 		{
 			GameObject text = new GameObject ("text_ui", typeof(GUIText));
 			text.GetComponent<GUIText>().text = level_str[this.CurrentLevel];
