@@ -229,7 +229,8 @@ public class Deplacement : MonoBehaviour {
 
 		//Vector3 deplac = new Vector3();
  
-		if (Input.GetKey (KeyCode.Q) ) {
+		//if (Input.GetKey (KeyCode.Q) ) {
+		if (Input.GetAxis("Horizontal")<0){
 			if(Mathf.Abs(currentvelocity.x) < VelmaxX)
 
 				if(onslope)
@@ -246,7 +247,7 @@ public class Deplacement : MonoBehaviour {
 
                 }
  
-		if (Input.GetKey (KeyCode.D) ) {
+		if (Input.GetAxis("Horizontal")>0 ) {
 
 			if(Mathf.Abs(currentvelocity.x) < VelmaxX)
 
@@ -265,7 +266,7 @@ public class Deplacement : MonoBehaviour {
                 }
 
 		
-			if(Input.GetKeyDown(KeyCode.Z) && onground)
+			if((Input.GetButtonDown("Jump")) && onground)
 			{
 				sound_player.PlayOneShot(son_saut);
 
