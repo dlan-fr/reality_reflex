@@ -60,7 +60,9 @@ public class Deplacement : MonoBehaviour {
 		List<GameObject> liste =  GameDataMngr.Singleton.CreateHud();
 		GameDataMngr.Singleton.CreateMusic(son_ambi_1,son_ambi_2);
 
-		GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
+
+		if(liste.Count > 0)
+			GameDataMngr.Singleton.graphEffects.Add(new Effet(GameObject.Find("text_ui"),GraphicEffect.GUI_FADEOUT,2));
 
 		animator = GetComponentInChildren<Animator>();
 		_currentAnimationState = STATE_IDLE;

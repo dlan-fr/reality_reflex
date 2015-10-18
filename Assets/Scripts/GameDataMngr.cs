@@ -6,6 +6,7 @@ public class GameDataMngr {
 
 	private Dictionary<string,string> level_str = new Dictionary<string, string>()
 	{
+		{"menu","message vide"},
 		{"multiverse","Ici abandonne tout espoir..."},
 		{"niveau1","Et si la gravité changeait ?"},
 		{"niveau2", "Et si la gravité changeait ? 2 le retour"},
@@ -13,7 +14,7 @@ public class GameDataMngr {
 	};
 
 
-	private string CurrentLevel = "multiverse";
+	private string CurrentLevel = "menu";
 
 	private Vector3 LevelStartPos = Vector3.zero;
 
@@ -88,18 +89,28 @@ public class GameDataMngr {
 	public List<GameObject> CreateHud()
 	{
 		List<GameObject> HUD = new List<GameObject>();
-		GameObject text = new GameObject ("text_ui", typeof(GUIText));
-		text.GetComponent<GUIText>().text = level_str[this.CurrentLevel];
-		text.GetComponent<GUIText>().transform.position = new Vector3(10f / (float)Screen.width, 1.0f, 0f); 
-		GameObject text2 = new GameObject ("Reliques", typeof(GUIText));
-		text2.GetComponent<GUIText>().text = "Reliques : "+ nbreReliques.ToString();
-		text2.GetComponent<GUIText>().transform.position = new Vector3(0.9f, 1.0f, 0f); 
-		GameObject text3 = new GameObject ("Vies", typeof(GUIText));
-		text3.GetComponent<GUIText>().text = "Vies : "+ nbreVies.ToString();
-		text3.GetComponent<GUIText>().transform.position = new Vector3(0.8f, 1.0f, 0f); 
-		HUD.Add(text);
-		HUD.Add(text2);
-		HUD.Add(text3);
+
+		if(CurrentLevel != "menu")
+		{
+			GameObject text = new GameObject ("text_ui", typeof(GUIText));
+			text.GetComponent<GUIText>().text = level_str[this.CurrentLevel];
+			text.GetComponent<GUIText>().transform.position = new Vector3(10f / (float)Screen.width, 1.0f, 0f); 
+			GameObject text2 = new GameObject ("Reliques", typeof(GUIText));
+			text2.GetComponent<GUIText>().text = "Reliques : "+ nbreReliques.ToString();
+			text2.GetComponent<GUIText>().transform.position = new Vector3(0.9f, 1.0f, 0f); 
+			GameObject text3 = new GameObject ("Vies", typeof(GUIText));
+			text3.GetComponent<GUIText>().text = "Vies : "+ nbreVies.ToString();
+			text3.GetComponent<GUIText>().transform.position = new Vector3(0.8f, 1.0f, 0f); 
+			HUD.Add(text);
+			HUD.Add(text2);
+			HUD.Add(text3);
+		}
+		else
+		{
+			//creer objet spécifique au menu
+
+		}
+
 		return HUD;
 	}
 
