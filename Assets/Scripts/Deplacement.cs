@@ -263,10 +263,20 @@ public class Deplacement : MonoBehaviour {
 			GetComponent<Rigidbody2D>().velocity = new Vector2(0.0f,currentvelocity.y);
 			
 
-			if(pressed)
-				changeState(STATE_WALK);
-			else
-				changeState(STATE_IDLE);
+		if(pressed)
+		{
+			if(!sound_player.isPlaying)
+			{
+				//sélection d'un son de pas au hazard
+				int rand_son = Random.Range(0,sons_pas.Length-1);
+
+				sound_player.PlayOneShot(sons_pas[rand_son]);
+			}
+
+			changeState(STATE_WALK);
+		}
+		else
+			changeState(STATE_IDLE);
 
 		GameDataMngr.Singleton.UpdateEffects();
 	}
