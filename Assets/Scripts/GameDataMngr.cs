@@ -12,7 +12,7 @@ public class GameDataMngr {
 		{"multiverse","tien on peut passer à travers les miroirs"},
 		{"niveau1","Qu'est ce donc ?"},
 		{"niveau2", "la gravité à l’air alternée ici, c’est étrange..."},
-		{"niveau4","de la vapeur ?n"},
+		{"niveau4","de la vapeur ?"},
 		{"niveau5","hou, sa part loin"},
 		{"niveau6","Plus qu'une relique..."}
 	};
