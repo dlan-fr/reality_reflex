@@ -11,7 +11,8 @@ public class GameDataMngr {
 		{"multiverse","Ici abandonne tout espoir..."},
 		{"niveau1","Et si la gravité changeait ?"},
 		{"niveau2", "Et si la gravité changeait ? 2 le retour"},
-		{"niveau3","Apprait et disparait"}
+		{"niveau3","Le saut est la clé"},
+		{"niveau4","De la gravité dans l'espace ?"}
 	};
 
 
