@@ -9,6 +9,8 @@ public class TriggerPortal : MonoBehaviour {
 
 	public AudioClip son_mirroir;
 
+	public PouvoirJoueur.ListePouvoir pouvoirObtient;
+
 	private AudioSource sound_player;
 	    
 	// Use this for initialization 
@@ -31,6 +33,8 @@ public class TriggerPortal : MonoBehaviour {
 
 		if(currentBehav == PortalBehav.SWITCH_LEVEL)
 		{
+			GameDataMngr.Singleton.PouvJoueur.AjoutPouvoir(pouvoirObtient);
+
 			GameDataMngr.Singleton.SetNewLevel(ToScene,currentEffect);
 		}
 		else if(currentBehav == PortalBehav.SWITCH_MECHANICS)

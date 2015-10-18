@@ -62,6 +62,8 @@ public class GameDataMngr {
 	private const float TRANSITION_TIME = 2000.0f;
 	private float switch_level_transtion;
 
+
+	public PouvoirJoueur PouvJoueur = new PouvoirJoueur();
 	
 	private static GameDataMngr _singleton = null;
 	
