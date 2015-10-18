@@ -8,14 +8,17 @@ public class GameDataMngr {
 	{
 		{"Menu","message vide"},
 		{"Credit","message vide"},
-		{"multiverse","Ici abandonne tout espoir..."},
-		{"niveau1","Et si la gravité changeait ?"},
-		{"niveau2", "Et si la gravité changeait ? 2 le retour"},
-		{"niveau4","Le saut est la clé"},
-		{"niveau5","De la gravité dans l'espace ?"},
-		{"niveau6","La fin ?"}
+		{"niveau3","Qu'est ce donc ?"},
+		{"multiverse","tien on peut passer à travers les miroirs"},
+		{"niveau1","Qu'est ce donc ?"},
+		{"niveau2", "la gravité à l’air alternée ici, c’est étrange..."},
+		{"niveau4","de la vapeur ?"},
+		{"niveau5","hou, sa part loin"},
+		{"niveau6","Plus qu'une relique..."}
 	};
 
+
+	//1 2 4 5 6
 
 	//private string CurrentLevel = "Menu";
 	private string CurrentLevel = "Menu";
@@ -94,6 +97,7 @@ public class GameDataMngr {
 	public  GameDataMngr()
 	{
 		switch_level_transtion = TRANSITION_TIME;
+		Cursor.visible = false;
 		
 	}
 
