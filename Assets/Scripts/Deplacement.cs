@@ -161,6 +161,7 @@ public class Deplacement : MonoBehaviour {
 
 		if(GameDataMngr.Singleton.doTransition)
 		{
+			changeState(STATE_IDLE);
 			GameDataMngr.Singleton.UpdateMngr();
 			return;
 		}
