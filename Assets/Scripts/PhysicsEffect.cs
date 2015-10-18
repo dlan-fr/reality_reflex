@@ -16,6 +16,8 @@ public class PhysicsEffect : MonoBehaviour {
 
 	private AudioSource sound_player;
 
+	private bool triggered = false;
+
 	// Use this for initialization
 	void Start () {
 
@@ -54,7 +56,12 @@ public class PhysicsEffect : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D other) {
 		if(render.enabled)
 		{
-			GameDataMngr.Singleton.nbreVies--;
+			GameObject player = GameObject.Find("Playercontroller");
+			
+			Deplacement player_script = player.GetComponent<Deplacement>();
+
+			if(!player_script.isDead)
+				GameDataMngr.Singleton.nbreVies--;
 		}
 	}
 }
